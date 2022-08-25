@@ -1,0 +1,1698 @@
+<NcModal
+    modalTitle={t('labels.testimonialInformation')}
+    classList="inline-block"
+    contentExtraClass="max-w-3xl"
+    renderTrigger={(openModal) => (
+        <button onClick={() => openModal()} title={t('labels.testimonialInformation')}>
+            <FontAwesomeIcon icon={faEye} className="text-lg " style={{ width: '1.25em', color: "#e58d09", marginRight: ".5rem" }}></FontAwesomeIcon>
+        </button>
+    )}
+    renderContent={() => renderSidebar(row)} 
+/> 
+
+
+
+
+
+
+
+
+import React, { Fragment, useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import ButtonClose from "../ButtonClose/ButtonClose";
+import Button from "../Button/Button";
+
+const NcModal = ({
+    renderTrigger,
+    renderContent,
+    classList = "",
+    contentExtraClass = "max-w-screen-xl",
+    triggerText = "Open Modal",
+    modalTitle = "Modal title",
+    isOpenProp,
+    onCloseModal,
+}) => {
+    let [isOpen, setIsOpen] = useState(!!isOpenProp);
+
+    function closeModal() {
+        if (typeof isOpenProp !== "boolean") {
+            setIsOpen(false);
+        }
+        onCloseModal && onCloseModal();
+    }
+
+    function openModal() {
+        if (typeof isOpenProp !== "boolean") {
+            setIsOpen(true);
+        }
+    }
+
+    useEffect(() => {
+        setIsOpen(!!isOpenProp);
+    }, [isOpenProp]);
+
+    return (
+        <div className={`nc-NcModal ${classList}`}>
+            {renderTrigger ? (
+                renderTrigger(openModal)
+            ) : (
+                <Button onClick={openModal}> {triggerText} </Button>
+            )}
+
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog
+                    as="div"
+                    className="fixed inset-0 z-50 overflow-y-auto"
+                    onClose={closeModal}
+                >
+                    <div className="min-h-screen px-1 text-center md:px-4">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-75"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="ease-in duration-75"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
+                        >
+                            <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80" />
+                        </Transition.Child>
+
+                        {/* This element is to trick the browser into centering the modal contents. */}
+                        <span
+                            className="inline-block h-screen align-middle"
+                            aria-hidden="true"
+                        >
+                            &#8203;
+                        </span>
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-75"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-75"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <div
+                                className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-2xl sm:my-8 dark:bg-neutral-800 dark:border-neutral-700 text-neutral-900 dark:text-neutral-300 ${contentExtraClass}`}
+                            >
+                                <div className="py-4 px-6 text-center relative border-b border-neutral-100 dark:border-neutral-700 md:py-5">
+                                    <ButtonClose
+                                        onClick={closeModal}
+                                        className="absolute left-2 top-1/2 transform -translate-y-1/2 sm:left-4"
+                                    />
+                                    {modalTitle && (
+                                        <Dialog.Title
+                                            as="h3"
+                                            className="text-base font-semibold text-neutral-900 lg:text-xl dark:text-neutral-200 mx-10"
+                                        >
+                                            {modalTitle}
+                                        </Dialog.Title>
+                                    )}
+                                </div>
+                                <div className="flex-grow overflow-y-auto">
+                                    <div className="p-8 divide-neutral-200 dark:divide-neutral-800">
+                                        {renderContent(closeModal)}
+                                    </div>
+                                </div>
+                            </div>
+                        </Transition.Child>
+                    </div>
+                </Dialog>
+            </Transition>
+        </div>
+    );
+};
+
+export default NcModal;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="login" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="registermodal" aria-hidden="true">
+  <div class="modal-dialog modal-xl login-pop-form" role="document">
+    <div class="modal-content overli login-modal" id="registermodal">
+      <div class="modal-body p-0">
+        <div class="resp_log_wrap">
+          <div class="sign-up-login">
+            <div class="sign-up-login-inner">
+              <div class="sign-up-login-logo">
+                <img src="{% static 'assets/img/cleerli-logo-4.svg' %}"><strong>Sign Up</strong>
+              </div>
+              <div class="signup-form-text">
+                <span>
+                  Signing up for Cleerli is a quick four-step process. Let's get you set up.
+                </span>
+              </div>
+              <div class="sign-up-login-step sign-up-desktop">
+                <ul>
+                  <li class="step1"><span>1</span>Create your account</li>
+                  <li class="step2"><span>2</span>Verify your email address</li>
+                  <li class="step3"><span>3</span>Verify your mobile number</li>
+                  <li class="step4"><span>4</span>Create Your Profile</li>
+                </ul>
+              </div>
+              <div class="sign-up-login-step sign-up-mobile">
+                <ul>
+                  <li class="step1"><span>1</span><strong>Create account</strong></li>
+                  <li class="step2"><span>2</span><strong>Verify email</strong></li>
+                  <li class="step3"><span>3</span><strong>Verify mobile</strong></li>
+                  <li class="step4"><span>4</span><strong>Create Profile</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+<!--          <div class="resp_log_thumb" style="background:url({% static 'assets/img/log.jpg' %})no-repeat;"></div>-->
+          <div class="resp_log_caption">
+            <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            <div class="edlio_152">
+              <ul class="nav nav-pills tabs_system center" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active auth-modal-btn" id="pills-login-tab" data-toggle="pill"  href="JavaScript:void(0);" data-target="#pills-login" role="tab"
+                     aria-controls="pills-login" aria-selected="False"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link auth-modal-btn" id="pills-signup-tab" data-toggle="pill" href="JavaScript:void(0);" data-target="#pills-signup" role="tab"
+                     aria-controls="pills-signup" aria-selected="True"><i class="fas fa-user-plus mr-2"></i>Create an Account</a>
+                </li>
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-email-otp-tab" data-toggle="pill" href="#pills-email-otp" role="tab"-->
+<!--                     aria-controls="pills-email-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Email</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-user-tab" data-toggle="pill" href="#pills-user-details" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Detail</a>-->
+<!--                </li>-->
+                <!--- Tab button for the FORMs : start -->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-mobile-tab" data-toggle="pill" href="#pills-mobile-otp" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Mobile</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-email-forgot-password-tab" data-toggle="pill" href="#email-forgot-password" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Forgot</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="email-forgot-password-otp-tab" data-toggle="pill" href="#email-forgot-password-otp" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Forget Password OTP</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="email-forgot-password-change-tab" data-toggle="pill" href="#email-forgot-password-change" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Change Password</a>-->
+<!--                </li>-->
+              <!--- Tab button for the FORMs : end -->
+
+              </ul>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+              <!--- Login Form -->
+              <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+                <div class="login-form">
+                  <form id="loginForm">
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Email</label>
+                        <div class="input-with-icon">
+                          <input type="text" class="form-control" name="email">
+                          <i class="ti-user"></i>
+                        </div>
+                        <div class="invalid-feedback email">
+                              Invalid Email
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label>Password</label>
+                        <div class="input-with-icon">
+                          <input type="password" class="form-control" name="password">
+                          <i class="ti-unlock"></i>
+  <!--                        <div onclick="showPassword()">-->
+  <!--                          <i class="ti-eye" id="togglePassword" style="left: 360px"></i>-->
+  <!--                        </div>-->
+
+                        </div>
+                        <div class="invalid-feedback password">
+                              Invalid Password
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <div class="invalid-feedback non-field-errors">
+                              Non Field Errors
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <div class="eltio_ol9">
+                          <div class="eltio_k1">
+                            <input id="ddd" class="checkbox-custom" name="remember_me" type="checkbox">
+                            <span for="ddd" class="checkbox-custom-label checkbox-custom-css">
+                              <label class="checkbox-custom-label-info"> Remember Me </label>
+                            </span>
+                          </div>
+                          <div class="eltio_k2">
+                            <a href="#" class="forgetpassoword-link">Lost Your Password?</a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12 btn-form-group">
+                        <button type="submit" id="login-submit" class="btn btn-md full-width pop-login btn-form-green">
+                          <div class="spinner-border spinner-border-custom" role="status">
+                          </div>
+                          <span>Login</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- End Login Form -->
+              <!-- ==================================================== -->
+
+              <!-- Registration Form -->
+              <div class="tab-pane" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+                <div class="login-form">
+                  <form method="post" id="registration-form">
+                    {% csrf_token %}
+
+<!--                    <div class="form-group">-->
+<!--                      <label>Full Name</label>-->
+<!--                      <div class="input-with-icon">-->
+<!--                        <input type="text" class="form-control" id="full_name" name="full_name">-->
+<!--                        <i class="ti-user"></i>-->
+<!--                      </div>-->
+<!--                      <div class="invalid-feedback" id="fullNameError"></div>-->
+<!--                    </div>-->
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label>First Name</label>
+                        <div class="input-with-icon">
+                          <input type="text" class="form-control" id="first_name" name="first_name">
+                          <i class="ti-user"></i>
+                        </div>
+                        <div class="invalid-feedback" id="firstNameError"></div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>Last Name</label>
+                        <div class="input-with-icon">
+                          <input type="text" class="form-control" id="last_name" name="last_name">
+                          <i class="ti-user"></i>
+                        </div>
+                        <div class="invalid-feedback" id="lastNameError"></div>
+                      </div>
+
+
+
+                    <div class="form-group col-md-12">
+                      <label>Email ID</label>
+                      <div class="input-with-icon">
+                        <input type="email" class="form-control" id="email" name="email">
+                        <i class="ti-email"></i>
+                      </div>
+                      <div class="invalid-feedback" id="emailError"></div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                      <label>Mobile</label>
+                      <div class="input-with-icon">
+                        <input type="text" class="form-control" name="mobile" id="mobile" autocomplete="off">
+                        <i class="ti-mobile"></i>
+                      </div>
+                      <div class="invalid-feedback mobile"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label>Password</label>
+                      <div class="input-with-icon">
+                        <input type="password" class="form-control" id="password" name="password">
+                        <i class="ti-unlock"></i>
+                      </div>
+                      <div class="invalid-feedback" id="passwordError"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label>Confirm Password</label>
+                      <div class="input-with-icon">
+                        <input type="password" class="form-control" id="c_password" name="confirm_password">
+                        <i class="ti-key"></i>
+                      </div>
+                      <div class="invalid-feedback" id="confirmPasswordError"></div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                      <div class="eltio_ol9">
+                        <div class="eltio_k1">
+
+                          <input id="agree" class="checkbox-custom" name="agree" type="checkbox">
+                          <span for="agree" class="checkbox-custom-label checkbox-custom-css">
+                              <label class="checkbox-custom-label-info">
+                                 By completing the sign up process and using our website, you agree to the Cleerli
+                                    <a href="{% url 'frontend:privacy' %}" class="font-weight-bold text-success cursor">
+                                      <span> Privacy Policy</span>
+                                    </a>
+                                & <a href="{% url 'frontend:terms_conditions' %}" class="font-weight-bold text-success cursor">
+                                      <span> Terms of Use</span>
+                                  </a>.
+                              </label>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="invalid-feedback" id="agreeError">
+                            You must agree before submitting.
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-12 btn-form-group">
+                      <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="registration-submit">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                         <span>Create Account</span>
+                      </button>
+                    </div>
+<!--                    <div class="form-group col-md-12 text-center">-->
+<!--                      <span class="signup-second-option">I’ll do this later. Take me to-->
+<!--                        <a href="#" class="font-weight-bold text-success cursor wc-screen-flinks-connect-link">-->
+<!--                            <span>My Dashboard</span>-->
+<!--                          </a>-->
+<!--                      </span>-->
+<!--                    </div>-->
+                  </div>
+                  </form>
+                </div>
+              </div>
+              <!-- End Registration Form -->
+
+              <!-- ==================================================== -->
+
+              <!-- Email OTP Verification -->
+              <div class="tab-pane" id="pills-email-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+                <div class="email-verification-form">
+                  <form id="registrationEmailOtpVerification">
+                    <div class="d-flex justify-content-center align-items-center container">
+                      <div class="card py-5 px-3 mobile-pad-less">
+                        <h2 class="m-0 text-center">Email Verification</h2>
+                          <div class="mobile-verification-form">
+                          <span class="mobile-text text-center">We just sent an email with a 4 digit code to <b class="text-success" id="sentOtpMail">xyz@gmail.com</b>. Check your email for the code and enter it below.</span>
+                          <div class="d-flex flex-row mt-5 less-mobile-margin-top">
+                            <input id="otpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                            <input id="otpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                            <input id="otpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                            <input id="otpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                          </div>
+                          <div class="invalid-feedback" id="OTPCodeError"></div>
+                          <div class="invalid-feedback" id="OTPTypeError"></div>
+                          <div class="invalid-feedback" id="OTPUserError"></div>
+                          <div class="text-center mt-5 less-mobile-margin-top">
+                            <span class="d-block mobile-text">Didn't receive the code?</span>
+                            <a href="#" class="font-weight-bold text-success cursor" id="resendOTP">
+                              <div class="spinner-border spinner-border-custom" role="status">
+                              </div>
+                              <span> Resend </span>
+                            </a>
+                            |
+                            <a href="#" class="font-weight-bold text-success cursor" id="changeEmailAddress">
+                              <div class="spinner-border spinner-border-custom" role="status">
+                              </div>
+                              <span>Change Email Address</span>
+                            </a>
+                            <p class="font-weight-bold text-success cursor success-msg"></p>
+                          </div>
+                          <div class="invalid-feedback" id="resentOTPTypeError"></div>
+                          <div class="invalid-feedback" id="resentOTPUserError"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group btn-form-group">
+                      <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="verifyMailOTP">
+                        <div class="spinner-border spinner-border-custom" role="status"></div>
+                        <span>Verify Email</span>
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+              <!-- End Email OTP Verification -->
+
+              <!-- Start: Change Email -->
+              <div class="tab-pane" id="user-registration-step2-change-email" role="tabpanel"
+                 aria-labelledby="pills-login-tab">
+              <div class="login-form">
+                <h2 class="text-center">Verify Email</h2>
+                  <div class="signup-form-title-spacing">
+                    <form id="user-registration-step2-change-email-form">
+                      <div class="form-group">
+                        <label>Email</label>
+                        <div class="input-with-icon">
+                          <input type="text" class="form-control" name="email">
+                          <i class="ti-email"></i>
+                        </div>
+                        <div class="invalid-feedback email"></div>
+                      </div>
+                      <div class="form-group">
+                        <div class="invalid-feedback nonFieldErrors"></div>
+                      </div>
+                      <div class="form-group btn-form-group">
+                        <button type="submit" id="user-registration-step2-change-email-submit-btn"
+                                class="btn btn-md full-width pop-login btn-form-green">
+                          <div class="spinner-border spinner-border-custom" role="status">
+                          </div>
+                          <span>Go Ahead</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+              <!-- End: Change Email -->
+
+
+              <!-- ==================================================== -->
+              <!-- Mobile OTP Verification -->
+              <div class="tab-pane fade" id="pills-mobile-otp" role="tabpanel" aria-labelledby="pills-mobile-verification-tab">
+                <div class="mobile-verification-form">
+                  <form id="registrationMobileOtpVerification">
+                    <div class="d-flex justify-content-center align-items-center container">
+                      <div class="card py-5 px-3">
+                        <h5 class="m-0 text-center">Mobile Phone Verification</h5><span class="mobile-text text-center">Enter the code we just send you on given phone nubmer &nbsp;<b
+                        class="text-success">+91-9876543210</b></span>
+                        <div class="d-flex flex-row mt-5">
+                          <input id="otpBox5" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(5, event)" onfocus="onFocusEvent(5)"/>
+                          <input id="otpBox6" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(6, event)" onfocus="onFocusEvent(6)"/>
+                          <input id="otpBox7" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(7, event)" onfocus="onFocusEvent(7)"/>
+                          <input id="otpBox8" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(8, event)" onfocus="onFocusEvent(8)"/>
+                        </div>
+                        <div class="invalid-feedback" id="MobileOTPCodeError"></div>
+                        <div class="invalid-feedback" id="MobileOTPTypeError"></div>
+                        <div class="invalid-feedback" id="MobileOTPUserError"></div>
+                        <div class="text-center mt-5"><span
+                          class="d-block mobile-text">Don't receive the code?</span><span
+                          class="font-weight-bold text-success cursor">Resend</span></div>
+                      </div>
+                    </div>
+                    <div class="form-group btn-form-group">
+                      <button type="submit" class="btn btn-md full-width pop-verify btn-form-green">Verify OTP</button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+              <!-- End Email OTP Verification -->
+
+              <!-- ==================================================== -->
+
+              <!-- Email Form (For Forgot-Password) -->
+              <div class="tab-pane" id="email-forgot-password" role="tabpanel" aria-labelledby="pills-email-forgot-password-tab">
+                <div class="email-forgot-password-form">
+                  <h4 class="text-center mb-3">Forgot Password?</h4>
+                  <span class="mobile-text text-center mb-3">Don't worry, Please Enter your registered Email here.</span>
+                  <form id="forgetPasswordFormStep1">
+
+                    <div class="form-group mt-3">
+                      <label>Email</label>
+                      <div class="input-with-icon">
+                        <input type="email" name="email" class="form-control">
+                        <i class="ti-email"></i>
+                      </div>
+                      <div class="invalid-feedback email">
+                            Invalid Email
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="eltio_ol9">
+                        <div class="eltio_k1">
+<!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>-->
+                        </div>
+                        <div class="eltio_k2">
+                          <a href="#" class="signin-link">Want to Log In?</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group btn-form-group">
+                      <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="forget-password-submit-step-1">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                        <span>Submit</span>
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+              <!-- End Email Form (For Forgot-Password) -->
+
+              <!-- Forgetpassword:- Email OTP Verification -->
+              <div class="tab-pane" id="email-forgot-password-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+                <div class="email-verification-form">
+                  <form id="forgetPasswordFormStep2">
+                    <div class="d-flex justify-content-center align-items-center container">
+                      <div class="card py-5 px-3">
+                        <h5 class="m-0 text-center">Email verification</h5><span class="mobile-text text-center">We sent an email to <b class="text-success" id="forgotPasswordOtpMail">abc@gmail.com</b>. Enter the code in the email to confirm your email address.</span>
+                        <div class="d-flex flex-row mt-5">
+                          <input id="forgotPasswordOtpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                          <input id="forgotPasswordOtpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                          <input id="forgotPasswordOtpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                          <input id="forgotPasswordOtpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                        </div>
+                        <div class="invalid-feedback" id="forgotPasswordOTPCodeError"></div>
+                        <div class="invalid-feedback" id="forgotPasswordOTPTypeError"></div>
+                        <div class="invalid-feedback" id="forgotPasswordOTPEmailError"></div>
+                        <div class="text-center mt-5">
+                          <span class="d-block mobile-text">Don't receive the code?</span>
+                          <p class="font-weight-bold text-success cursor">Please check in your spam email!</p>
+<!--                          <a href="#" class="font-weight-bold text-success cursor" id="forgotPasswordresendOTP">Resend</a>-->
+                        </div>
+                        <div class="invalid-feedback" id="forgotPasswordResentOTPTypeError"></div>
+                        <div class="invalid-feedback" id="forgotPasswordResentOTPUserError"></div>
+                      </div>
+                    </div>
+
+                     <div class="form-group">
+                      <div class="eltio_ol9">
+                        <div class="eltio_k1">
+<!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>-->
+                        </div>
+                        <div class="eltio_k2">
+                          <a href="#" class="signin-link">Want to Log In?</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group btn-form-group">
+                      <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="forgotPasswordVerifyMailOTP">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                        <span>Verify</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- Forgetpassword:- End Email OTP Verification -->
+
+              <!-- Forgot-Password Form -->
+              <div class="tab-pane" id="email-forgot-password-change" role="tabpanel" aria-labelledby="pills-forgot-password-tab">
+                <div class="forgot-password-form">
+                  <h4 class="text-center">Reset Password</h4>
+                  <form id="forgetPasswordFormStep3">
+                    <div class="form-group mt-3">
+                      <label>New Password</label>
+                      <div class="input-with-icon">
+                        <input type="password" name="new_password" class="form-control">
+                        <i class="ti-unlock"></i>
+                      </div>
+                      <div class="invalid-feedback password">
+                            Invalid New Password
+                      </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                      <label>Confirm New Password</label>
+                      <div class="input-with-icon">
+                        <input type="password" name="confirm_new_password" class="form-control">
+                        <i class="ti-key"></i>
+                      </div>
+                      <div class="invalid-feedback confirmpassword">
+                            Invalid Confirm Password
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <div class="eltio_ol9">
+                        <div class="eltio_k1">
+<!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>-->
+                        </div>
+                        <div class="eltio_k2">
+                          <a href="#" class="signin-link">Want to Log In?</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group btn-form-group">
+                      <button type="submit" class="btn btn-md full-width pop-login btn-form-green" id="forgotPasswordChangeNew">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                        <span>Submit</span>
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+              <!-- End Forgot-Password Form -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="resp_log_wrap">
+  <div class="sign-up-login">
+    <div class="sign-up-login-inner">
+      <div class="sign-up-login-logo">
+        <img src={logo}/><strong>Sign Up</strong>
+      </div>
+      <div class="signup-form-text">
+        <span>
+          Signing up for Cleerli is a quick four-step process. Let's get you set up.
+        </span>
+      </div>
+      <div class="sign-up-login-step sign-up-desktop">
+        <ul>
+          <li class="step1"><span>1</span>Create your account</li>
+          <li class="step2"><span>2</span>Verify your email address</li>
+          <li class="step3"><span>3</span>Verify your mobile number</li>
+          <li class="step4"><span>4</span>Create Your Profile</li>
+        </ul>
+      </div>
+      <div class="sign-up-login-step sign-up-mobile">
+        <ul>
+          <li class="step1"><span>1</span><strong>Create account</strong></li>
+          <li class="step2"><span>2</span><strong>Verify email</strong></li>
+          <li class="step3"><span>3</span><strong>Verify mobile</strong></li>
+          <li class="step4"><span>4</span><strong>Create Profile</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="resp_log_caption">
+    <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+    <div class="edlio_152">
+      <ul class="nav nav-pills tabs_system center" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active auth-modal-btn" id="pills-login-tab" data-toggle="pill"  href="JavaScript:void(0);" data-target="#pills-login" role="tab"
+             aria-controls="pills-login" aria-selected="False"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link auth-modal-btn" id="pills-signup-tab" data-toggle="pill" href="JavaScript:void(0);" data-target="#pills-signup" role="tab"
+             aria-controls="pills-signup" aria-selected="True"><i class="fas fa-user-plus mr-2"></i>Create an Account</a>
+        </li>            
+      {/* <!--- Tab button for the FORMs : end --> */}
+
+      </ul>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+      {/* <!--- Login Form --> */}
+      <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+        <div class="login-form">
+          <form id="loginForm">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Email</label>
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" name="email"/>
+                  <i class="ti-user"></i>
+                </div>
+                <div class="invalid-feedback email">
+                      Invalid Email
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <label>Password</label>
+                <div class="input-with-icon">
+                  <input type="password" class="form-control" name="password"/>
+                  <i class="ti-unlock"></i>
+
+                </div>
+                <div class="invalid-feedback password">
+                      Invalid Password
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="invalid-feedback non-field-errors">
+                      Non Field Errors
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="eltio_ol9">
+                  <div class="eltio_k1">
+                    <input id="ddd" class="checkbox-custom" name="remember_me" type="checkbox"/>
+                    <span for="ddd" class="checkbox-custom-label checkbox-custom-css">
+                      <label class="checkbox-custom-label-info"> Remember Me </label>
+                    </span>
+                  </div>
+                  <div class="eltio_k2">
+                    <a href="#" class="forgetpassoword-link">Lost Your Password?</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12 btn-form-group">
+                <button type="submit" id="login-submit" class="btn btn-md full-width pop-login btn-form-green">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                  <span>Login</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Login Form --> */}
+      {/* <!-- ==================================================== --> */}
+
+      {/* <!-- Registration Form --> */}
+      <div class="tab-pane" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+        <div class="login-form">
+          <form method="post" id="registration-form">
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>First Name</label>
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" id="first_name" name="first_name"/>
+                  <i class="ti-user"></i>
+                </div>
+                <div class="invalid-feedback" id="firstNameError"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Last Name</label>
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" id="last_name" name="last_name"/>
+                  <i class="ti-user"></i>
+                </div>
+                <div class="invalid-feedback" id="lastNameError"></div>
+              </div>
+
+
+
+            <div class="form-group col-md-12">
+              <label>Email ID</label>
+              <div class="input-with-icon">
+                <input type="email" class="form-control" id="email" name="email"/>
+                <i class="ti-email"></i>
+              </div>
+              <div class="invalid-feedback" id="emailError"></div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <label>Mobile</label>
+              <div class="input-with-icon">
+                <input type="text" class="form-control" name="mobile" id="mobile" autocomplete="off"/>
+                <i class="ti-mobile"></i>
+              </div>
+              <div class="invalid-feedback mobile"></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Password</label>
+              <div class="input-with-icon">
+                <input type="password" class="form-control" id="password" name="password"/>
+                <i class="ti-unlock"></i>
+              </div>
+              <div class="invalid-feedback" id="passwordError"></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Confirm Password</label>
+              <div class="input-with-icon">
+                <input type="password" class="form-control" id="c_password" name="confirm_password"/>
+                <i class="ti-key"></i>
+              </div>
+              <div class="invalid-feedback" id="confirmPasswordError"></div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <div class="eltio_ol9">
+                <div class="eltio_k1">
+
+                  <input id="agree" class="checkbox-custom" name="agree" type="checkbox"/>
+                  <span for="agree" class="checkbox-custom-label checkbox-custom-css">
+                      <label class="checkbox-custom-label-info">
+                         By completing the sign up process and using our website, you agree to the Cleerli
+                            <a href="{% url 'frontend:privacy' %}" class="font-weight-bold text-success cursor">
+                              <span> Privacy Policy</span>
+                            </a>
+                        & <a href="{% url 'frontend:terms_conditions' %}" class="font-weight-bold text-success cursor">
+                              <span> Terms of Use</span>
+                          </a>.
+                      </label>
+                  </span>
+                </div>
+              </div>
+              <div class="invalid-feedback" id="agreeError">
+                    You must agree before submitting.
+              </div>
+            </div>
+
+            <div class="form-group col-md-12 btn-form-group">
+              <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="registration-submit">
+                <div class="spinner-border spinner-border-custom" role="status">
+                </div>
+                 <span>Create Account</span>
+              </button>
+            </div>
+
+          </div>
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Registration Form --> */}
+
+      {/* <!-- ==================================================== --> */}
+
+      {/* <!-- Email OTP Verification --> */}
+      <div class="tab-pane" id="pills-email-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+        <div class="email-verification-form">
+          <form id="registrationEmailOtpVerification">
+            <div class="d-flex justify-content-center align-items-center container">
+              <div class="card py-5 px-3 mobile-pad-less">
+                <h2 class="m-0 text-center">Email Verification</h2>
+                  <div class="mobile-verification-form">
+                  <span class="mobile-text text-center">We just sent an email with a 4 digit code to <b class="text-success" id="sentOtpMail">xyz@gmail.com</b>. Check your email for the code and enter it below.</span>
+                  <div class="d-flex flex-row mt-5 less-mobile-margin-top">
+                    <input id="otpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                    <input id="otpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                    <input id="otpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                    <input id="otpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                  </div>
+                  <div class="invalid-feedback" id="OTPCodeError"></div>
+                  <div class="invalid-feedback" id="OTPTypeError"></div>
+                  <div class="invalid-feedback" id="OTPUserError"></div>
+                  <div class="text-center mt-5 less-mobile-margin-top">
+                    <span class="d-block mobile-text">Didn't receive the code?</span>
+                    <a href="#" class="font-weight-bold text-success cursor" id="resendOTP">
+                      <div class="spinner-border spinner-border-custom" role="status">
+                      </div>
+                      <span> Resend </span>
+                    </a>
+                    |
+                    <a href="#" class="font-weight-bold text-success cursor" id="changeEmailAddress">
+                      <div class="spinner-border spinner-border-custom" role="status">
+                      </div>
+                      <span>Change Email Address</span>
+                    </a>
+                    <p class="font-weight-bold text-success cursor success-msg"></p>
+                  </div>
+                  <div class="invalid-feedback" id="resentOTPTypeError"></div>
+                  <div class="invalid-feedback" id="resentOTPUserError"></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group btn-form-group">
+              <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="verifyMailOTP">
+                <div class="spinner-border spinner-border-custom" role="status"></div>
+                <span>Verify Email</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Email OTP Verification --> */}
+
+      {/* <!-- Start: Change Email --> */}
+      <div class="tab-pane" id="user-registration-step2-change-email" role="tabpanel"
+         aria-labelledby="pills-login-tab">
+      <div class="login-form">
+        <h2 class="text-center">Verify Email</h2>
+          <div class="signup-form-title-spacing">
+            <form id="user-registration-step2-change-email-form">
+              <div class="form-group">
+                <label>Email</label>
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" name="email"/>
+                  <i class="ti-email"></i>
+                </div>
+                <div class="invalid-feedback email"></div>
+              </div>
+              <div class="form-group">
+                <div class="invalid-feedback nonFieldErrors"></div>
+              </div>
+              <div class="form-group btn-form-group">
+                <button type="submit" id="user-registration-step2-change-email-submit-btn"
+                        class="btn btn-md full-width pop-login btn-form-green">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                  <span>Go Ahead</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+      {/* <!-- End: Change Email --> */}
+
+
+      {/* <!-- ==================================================== --> */}
+      {/* <!-- Mobile OTP Verification --> */}
+      <div class="tab-pane fade" id="pills-mobile-otp" role="tabpanel" aria-labelledby="pills-mobile-verification-tab">
+        <div class="mobile-verification-form">
+          <form id="registrationMobileOtpVerification">
+            <div class="d-flex justify-content-center align-items-center container">
+              <div class="card py-5 px-3">
+                <h5 class="m-0 text-center">Mobile Phone Verification</h5><span class="mobile-text text-center">Enter the code we just send you on given phone nubmer &nbsp;<b
+                class="text-success">+91-9876543210</b></span>
+                <div class="d-flex flex-row mt-5">
+                  <input id="otpBox5" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(5, event)" onfocus="onFocusEvent(5)"/>
+                  <input id="otpBox6" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(6, event)" onfocus="onFocusEvent(6)"/>
+                  <input id="otpBox7" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(7, event)" onfocus="onFocusEvent(7)"/>
+                  <input id="otpBox8" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(8, event)" onfocus="onFocusEvent(8)"/>
+                </div>
+                <div class="invalid-feedback" id="MobileOTPCodeError"></div>
+                <div class="invalid-feedback" id="MobileOTPTypeError"></div>
+                <div class="invalid-feedback" id="MobileOTPUserError"></div>
+                <div class="text-center mt-5"><span
+                  class="d-block mobile-text">Don't receive the code?</span><span
+                  class="font-weight-bold text-success cursor">Resend</span></div>
+              </div>
+            </div>
+            <div class="form-group btn-form-group">
+              <button type="submit" class="btn btn-md full-width pop-verify btn-form-green">Verify OTP</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Email OTP Verification --> */}
+
+      {/* <!-- ==================================================== --> */}
+
+      {/* <!-- Email Form (For Forgot-Password) --> */}
+      <div class="tab-pane" id="email-forgot-password" role="tabpanel" aria-labelledby="pills-email-forgot-password-tab">
+        <div class="email-forgot-password-form">
+          <h4 class="text-center mb-3">Forgot Password?</h4>
+          <span class="mobile-text text-center mb-3">Don't worry, Please Enter your registered Email here.</span>
+          <form id="forgetPasswordFormStep1">
+
+            <div class="form-group mt-3">
+              <label>Email</label>
+              <div class="input-with-icon">
+                <input type="email" name="email" class="form-control"/>
+                <i class="ti-email"></i>
+              </div>
+              <div class="invalid-feedback email">
+                    Invalid Email
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="eltio_ol9">
+                <div class="eltio_k1">
+                </div>
+                <div class="eltio_k2">
+                  <a href="#" class="signin-link">Want to Log In?</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group btn-form-group">
+              <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="forget-password-submit-step-1">
+                <div class="spinner-border spinner-border-custom" role="status">
+                </div>
+                <span>Submit</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Email Form (For Forgot-Password) --> */}
+
+      {/* <!-- Forgetpassword:- Email OTP Verification --> */}
+      <div class="tab-pane" id="email-forgot-password-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+        <div class="email-verification-form">
+          <form id="forgetPasswordFormStep2">
+            <div class="d-flex justify-content-center align-items-center container">
+              <div class="card py-5 px-3">
+                <h5 class="m-0 text-center">Email verification</h5><span class="mobile-text text-center">We sent an email to <b class="text-success" id="forgotPasswordOtpMail">abc@gmail.com</b>. Enter the code in the email to confirm your email address.</span>
+                <div class="d-flex flex-row mt-5">
+                  <input id="forgotPasswordOtpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                  <input id="forgotPasswordOtpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                  <input id="forgotPasswordOtpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                  <input id="forgotPasswordOtpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                </div>
+                <div class="invalid-feedback" id="forgotPasswordOTPCodeError"></div>
+                <div class="invalid-feedback" id="forgotPasswordOTPTypeError"></div>
+                <div class="invalid-feedback" id="forgotPasswordOTPEmailError"></div>
+                <div class="text-center mt-5">
+                  <span class="d-block mobile-text">Don't receive the code?</span>
+                  <p class="font-weight-bold text-success cursor">Please check in your spam email!</p>
+                </div>
+                <div class="invalid-feedback" id="forgotPasswordResentOTPTypeError"></div>
+                <div class="invalid-feedback" id="forgotPasswordResentOTPUserError"></div>
+              </div>
+            </div>
+
+             <div class="form-group">
+              <div class="eltio_ol9">
+                <div class="eltio_k1">
+                </div>
+                <div class="eltio_k2">
+                  <a href="#" class="signin-link">Want to Log In?</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group btn-form-group">
+              <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="forgotPasswordVerifyMailOTP">
+                <div class="spinner-border spinner-border-custom" role="status">
+                </div>
+                <span>Verify</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* <!-- Forgetpassword:- End Email OTP Verification --> */}
+
+      {/* <!-- Forgot-Password Form --> */}
+      <div class="tab-pane" id="email-forgot-password-change" role="tabpanel" aria-labelledby="pills-forgot-password-tab">
+        <div class="forgot-password-form">
+          <h4 class="text-center">Reset Password</h4>
+          <form id="forgetPasswordFormStep3">
+            <div class="form-group mt-3">
+              <label>New Password</label>
+              <div class="input-with-icon">
+                <input type="password" name="new_password" class="form-control"/>
+                <i class="ti-unlock"></i>
+              </div>
+              <div class="invalid-feedback password">
+                    Invalid New Password
+              </div>
+            </div>
+
+            <div class="form-group mt-3">
+              <label>Confirm New Password</label>
+              <div class="input-with-icon">
+                <input type="password" name="confirm_new_password" class="form-control"/>
+                <i class="ti-key"></i>
+              </div>
+              <div class="invalid-feedback confirmpassword">
+                    Invalid Confirm Password
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="eltio_ol9">
+                <div class="eltio_k1">
+{/* <!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>--> */}
+                </div>
+                <div class="eltio_k2">
+                  <a href="#" class="signin-link">Want to Log In?</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group btn-form-group">
+              <button type="submit" class="btn btn-md full-width pop-login btn-form-green" id="forgotPasswordChangeNew">
+                <div class="spinner-border spinner-border-custom" role="status">
+                </div>
+                <span>Submit</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      {/* <!-- End Forgot-Password Form --> */}
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="resp_log_wrap">
+    <div class="sign-up-login">
+      <div class="sign-up-login-inner">
+        <div class="sign-up-login-logo">
+          <img src={logo}/><strong>Sign Up</strong>
+        </div>
+        <div class="signup-form-text">
+          <span>
+            Signing up for Cleerli is a quick four-step process. Let's get you set up.
+          </span>
+        </div>
+        <div class="sign-up-login-step sign-up-desktop">
+          <ul>
+            <li class="step1"><span>1</span>Create your account</li>
+            <li class="step2"><span>2</span>Verify your email address</li>
+            <li class="step3"><span>3</span>Verify your mobile number</li>
+            <li class="step4"><span>4</span>Create Your Profile</li>
+          </ul>
+        </div>
+        <div class="sign-up-login-step sign-up-mobile">
+          <ul>
+            <li class="step1"><span>1</span><strong>Create account</strong></li>
+            <li class="step2"><span>2</span><strong>Verify email</strong></li>
+            <li class="step3"><span>3</span><strong>Verify mobile</strong></li>
+            <li class="step4"><span>4</span><strong>Create Profile</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+{/* <!--          <div class="resp_log_thumb" style="background:url({% static 'assets/img/log.jpg' %})no-repeat;"></div>--> */}
+    <div class="resp_log_caption">
+      <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+      <div class="edlio_152">
+        <ul class="nav nav-pills tabs_system center" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active auth-modal-btn" id="pills-login-tab" data-toggle="pill"  href="JavaScript:void(0);" data-target="#pills-login" role="tab"
+               aria-controls="pills-login" aria-selected="False"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link auth-modal-btn" id="pills-signup-tab" data-toggle="pill" href="JavaScript:void(0);" data-target="#pills-signup" role="tab"
+               aria-controls="pills-signup" aria-selected="True"><i class="fas fa-user-plus mr-2"></i>Create an Account</a>
+          </li>
+{/* <!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-email-otp-tab" data-toggle="pill" href="#pills-email-otp" role="tab"-->
+<!--                     aria-controls="pills-email-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Email</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-user-tab" data-toggle="pill" href="#pills-user-details" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Detail</a>-->
+<!--                </li>-->
+          <!--- Tab button for the FORMs : start -->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-mobile-tab" data-toggle="pill" href="#pills-mobile-otp" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Mobile</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="pills-email-forgot-password-tab" data-toggle="pill" href="#email-forgot-password" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Forgot</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="email-forgot-password-otp-tab" data-toggle="pill" href="#email-forgot-password-otp" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Forget Password OTP</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                  <a class="nav-link auth-modal-btn reg-verify-btn" id="email-forgot-password-change-tab" data-toggle="pill" href="#email-forgot-password-change" role="tab"-->
+<!--                     aria-controls="pills-mobile-otp" aria-selected="false">-->
+<!--                    <i class="fas fa-user-plus mr-2"></i>Change Password</a>-->
+<!--                </li>--> */}
+        {/* <!--- Tab button for the FORMs : end --> */}
+
+        </ul>
+      </div>
+      <div class="tab-content" id="pills-tabContent">
+        {/* <!--- Login Form --> */}
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+          <div class="login-form">
+            <form id="loginForm">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label>Email</label>
+                  <div class="input-with-icon">
+                    <input type="text" class="form-control" name="email"/>
+                    <i class="ti-user"></i>
+                  </div>
+                  <div class="invalid-feedback email">
+                        Invalid Email
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label>Password</label>
+                  <div class="input-with-icon">
+                    <input type="password" class="form-control" name="password"/>
+                    <i class="ti-unlock"></i>
+{/* <!--                        <div onclick="showPassword()">-->
+<!--                          <i class="ti-eye" id="togglePassword" style="left: 360px"></i>-->
+<!--                        </div>--> */}
+
+                  </div>
+                  <div class="invalid-feedback password">
+                        Invalid Password
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <div class="invalid-feedback non-field-errors">
+                        Non Field Errors
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <div class="eltio_ol9">
+                    <div class="eltio_k1">
+                      <input id="ddd" class="checkbox-custom" name="remember_me" type="checkbox"/>
+                      <span for="ddd" class="checkbox-custom-label checkbox-custom-css">
+                        <label class="checkbox-custom-label-info"> Remember Me </label>
+                      </span>
+                    </div>
+                    <div class="eltio_k2">
+                      <a href="#" class="forgetpassoword-link">Lost Your Password?</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12 btn-form-group">
+                  <button type="submit" id="login-submit" class="btn btn-md full-width pop-login btn-form-green">
+                    <div class="spinner-border spinner-border-custom" role="status">
+                    </div>
+                    <span>Login</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Login Form --> */}
+        {/* <!-- ==================================================== --> */}
+
+        {/* <!-- Registration Form --> */}
+        <div class="tab-pane" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+          <div class="login-form">
+            <form method="post" id="registration-form">
+              {/* {% csrf_token %} */}
+
+{/* <!--                    <div class="form-group">-->
+<!--                      <label>Full Name</label>-->
+<!--                      <div class="input-with-icon">-->
+<!--                        <input type="text" class="form-control" id="full_name" name="full_name">-->
+<!--                        <i class="ti-user"></i>-->
+<!--                      </div>-->
+<!--                      <div class="invalid-feedback" id="fullNameError"></div>-->
+<!--                    </div>--> */}
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>First Name</label>
+                  <div class="input-with-icon">
+                    <input type="text" class="form-control" id="first_name" name="first_name"/>
+                    <i class="ti-user"></i>
+                  </div>
+                  <div class="invalid-feedback" id="firstNameError"></div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Last Name</label>
+                  <div class="input-with-icon">
+                    <input type="text" class="form-control" id="last_name" name="last_name"/>
+                    <i class="ti-user"></i>
+                  </div>
+                  <div class="invalid-feedback" id="lastNameError"></div>
+                </div>
+
+
+
+              <div class="form-group col-md-12">
+                <label>Email ID</label>
+                <div class="input-with-icon">
+                  <input type="email" class="form-control" id="email" name="email"/>
+                  <i class="ti-email"></i>
+                </div>
+                <div class="invalid-feedback" id="emailError"></div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <label>Mobile</label>
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" name="mobile" id="mobile" autocomplete="off"/>
+                  <i class="ti-mobile"></i>
+                </div>
+                <div class="invalid-feedback mobile"></div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Password</label>
+                <div class="input-with-icon">
+                  <input type="password" class="form-control" id="password" name="password"/>
+                  <i class="ti-unlock"></i>
+                </div>
+                <div class="invalid-feedback" id="passwordError"></div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Confirm Password</label>
+                <div class="input-with-icon">
+                  <input type="password" class="form-control" id="c_password" name="confirm_password"/>
+                  <i class="ti-key"></i>
+                </div>
+                <div class="invalid-feedback" id="confirmPasswordError"></div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="eltio_ol9">
+                  <div class="eltio_k1">
+
+                    <input id="agree" class="checkbox-custom" name="agree" type="checkbox"/>
+                    <span for="agree" class="checkbox-custom-label checkbox-custom-css">
+                        <label class="checkbox-custom-label-info">
+                           By completing the sign up process and using our website, you agree to the Cleerli
+                              <a href="{% url 'frontend:privacy' %}" class="font-weight-bold text-success cursor">
+                                <span> Privacy Policy</span>
+                              </a>
+                          & <a href="{% url 'frontend:terms_conditions' %}" class="font-weight-bold text-success cursor">
+                                <span> Terms of Use</span>
+                            </a>.
+                        </label>
+                    </span>
+                  </div>
+                </div>
+                <div class="invalid-feedback" id="agreeError">
+                      You must agree before submitting.
+                </div>
+              </div>
+
+              <div class="form-group col-md-12 btn-form-group">
+                <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="registration-submit">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                   <span>Create Account</span>
+                </button>
+              </div>
+{/* <!--                    <div class="form-group col-md-12 text-center">-->
+<!--                      <span class="signup-second-option">I’ll do this later. Take me to-->
+<!--                        <a href="#" class="font-weight-bold text-success cursor wc-screen-flinks-connect-link">-->
+<!--                            <span>My Dashboard</span>-->
+<!--                          </a>-->
+<!--                      </span>-->
+<!--                    </div>--> */}
+            </div>
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Registration Form --> */}
+
+        {/* <!-- ==================================================== --> */}
+
+        {/* <!-- Email OTP Verification --> */}
+        <div class="tab-pane" id="pills-email-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+          <div class="email-verification-form">
+            <form id="registrationEmailOtpVerification">
+              <div class="d-flex justify-content-center align-items-center container">
+                <div class="card py-5 px-3 mobile-pad-less">
+                  <h2 class="m-0 text-center">Email Verification</h2>
+                    <div class="mobile-verification-form">
+                    <span class="mobile-text text-center">We just sent an email with a 4 digit code to <b class="text-success" id="sentOtpMail">xyz@gmail.com</b>. Check your email for the code and enter it below.</span>
+                    <div class="d-flex flex-row mt-5 less-mobile-margin-top">
+                      <input id="otpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                      <input id="otpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                      <input id="otpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                      <input id="otpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                    </div>
+                    <div class="invalid-feedback" id="OTPCodeError"></div>
+                    <div class="invalid-feedback" id="OTPTypeError"></div>
+                    <div class="invalid-feedback" id="OTPUserError"></div>
+                    <div class="text-center mt-5 less-mobile-margin-top">
+                      <span class="d-block mobile-text">Didn't receive the code?</span>
+                      <a href="#" class="font-weight-bold text-success cursor" id="resendOTP">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                        <span> Resend </span>
+                      </a>
+                      |
+                      <a href="#" class="font-weight-bold text-success cursor" id="changeEmailAddress">
+                        <div class="spinner-border spinner-border-custom" role="status">
+                        </div>
+                        <span>Change Email Address</span>
+                      </a>
+                      <p class="font-weight-bold text-success cursor success-msg"></p>
+                    </div>
+                    <div class="invalid-feedback" id="resentOTPTypeError"></div>
+                    <div class="invalid-feedback" id="resentOTPUserError"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group btn-form-group">
+                <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="verifyMailOTP">
+                  <div class="spinner-border spinner-border-custom" role="status"></div>
+                  <span>Verify Email</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Email OTP Verification --> */}
+
+        {/* <!-- Start: Change Email --> */}
+        <div class="tab-pane" id="user-registration-step2-change-email" role="tabpanel"
+           aria-labelledby="pills-login-tab">
+        <div class="login-form">
+          <h2 class="text-center">Verify Email</h2>
+            <div class="signup-form-title-spacing">
+              <form id="user-registration-step2-change-email-form">
+                <div class="form-group">
+                  <label>Email</label>
+                  <div class="input-with-icon">
+                    <input type="text" class="form-control" name="email"/>
+                    <i class="ti-email"></i>
+                  </div>
+                  <div class="invalid-feedback email"></div>
+                </div>
+                <div class="form-group">
+                  <div class="invalid-feedback nonFieldErrors"></div>
+                </div>
+                <div class="form-group btn-form-group">
+                  <button type="submit" id="user-registration-step2-change-email-submit-btn"
+                          class="btn btn-md full-width pop-login btn-form-green">
+                    <div class="spinner-border spinner-border-custom" role="status">
+                    </div>
+                    <span>Go Ahead</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+        {/* <!-- End: Change Email --> */}
+
+
+        {/* <!-- ==================================================== --> */}
+        {/* <!-- Mobile OTP Verification --> */}
+        <div class="tab-pane fade" id="pills-mobile-otp" role="tabpanel" aria-labelledby="pills-mobile-verification-tab">
+          <div class="mobile-verification-form">
+            <form id="registrationMobileOtpVerification">
+              <div class="d-flex justify-content-center align-items-center container">
+                <div class="card py-5 px-3">
+                  <h5 class="m-0 text-center">Mobile Phone Verification</h5><span class="mobile-text text-center">Enter the code we just send you on given phone nubmer &nbsp;<b
+                  class="text-success">+91-9876543210</b></span>
+                  <div class="d-flex flex-row mt-5">
+                    <input id="otpBox5" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(5, event)" onfocus="onFocusEvent(5)"/>
+                    <input id="otpBox6" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(6, event)" onfocus="onFocusEvent(6)"/>
+                    <input id="otpBox7" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(7, event)" onfocus="onFocusEvent(7)"/>
+                    <input id="otpBox8" type="text" class="form-control mr-3 text-center otp-block" maxlength="1" onkeyup="onKeyUpEvent(8, event)" onfocus="onFocusEvent(8)"/>
+                  </div>
+                  <div class="invalid-feedback" id="MobileOTPCodeError"></div>
+                  <div class="invalid-feedback" id="MobileOTPTypeError"></div>
+                  <div class="invalid-feedback" id="MobileOTPUserError"></div>
+                  <div class="text-center mt-5"><span
+                    class="d-block mobile-text">Don't receive the code?</span><span
+                    class="font-weight-bold text-success cursor">Resend</span></div>
+                </div>
+              </div>
+              <div class="form-group btn-form-group">
+                <button type="submit" class="btn btn-md full-width pop-verify btn-form-green">Verify OTP</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Email OTP Verification --> */}
+
+        {/* <!-- ==================================================== --> */}
+
+        {/* <!-- Email Form (For Forgot-Password) --> */}
+        <div class="tab-pane" id="email-forgot-password" role="tabpanel" aria-labelledby="pills-email-forgot-password-tab">
+          <div class="email-forgot-password-form">
+            <h4 class="text-center mb-3">Forgot Password?</h4>
+            <span class="mobile-text text-center mb-3">Don't worry, Please Enter your registered Email here.</span>
+            <form id="forgetPasswordFormStep1">
+
+              <div class="form-group mt-3">
+                <label>Email</label>
+                <div class="input-with-icon">
+                  <input type="email" name="email" class="form-control"/>
+                  <i class="ti-email"></i>
+                </div>
+                <div class="invalid-feedback email">
+                      Invalid Email
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="eltio_ol9">
+                  <div class="eltio_k1">
+{/* <!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>--> */}
+                  </div>
+                  <div class="eltio_k2">
+                    <a href="#" class="signin-link">Want to Log In?</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group btn-form-group">
+                <button type="button" class="btn btn-md full-width pop-login btn-form-green" id="forget-password-submit-step-1">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                  <span>Submit</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Email Form (For Forgot-Password) --> */}
+
+        {/* <!-- Forgetpassword:- Email OTP Verification --> */}
+        <div class="tab-pane" id="email-forgot-password-otp" role="tabpanel" aria-labelledby="pills-email-verification-tab">
+          <div class="email-verification-form">
+            <form id="forgetPasswordFormStep2">
+              <div class="d-flex justify-content-center align-items-center container">
+                <div class="card py-5 px-3">
+                  <h5 class="m-0 text-center">Email verification</h5><span class="mobile-text text-center">We sent an email to <b class="text-success" id="forgotPasswordOtpMail">abc@gmail.com</b>. Enter the code in the email to confirm your email address.</span>
+                  <div class="d-flex flex-row mt-5">
+                    <input id="forgotPasswordOtpBox1" type="text" class="form-control mr-3 text-center otp-block index1" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1, event)"/>
+                    <input id="forgotPasswordOtpBox2" type="text" class="form-control mr-3 text-center otp-block index2" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2, event)"/>
+                    <input id="forgotPasswordOtpBox3" type="text" class="form-control mr-3 text-center otp-block index3" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3, event)"/>
+                    <input id="forgotPasswordOtpBox4" type="text" class="form-control mr-3 text-center otp-block index4" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4, event)"/>
+                  </div>
+                  <div class="invalid-feedback" id="forgotPasswordOTPCodeError"></div>
+                  <div class="invalid-feedback" id="forgotPasswordOTPTypeError"></div>
+                  <div class="invalid-feedback" id="forgotPasswordOTPEmailError"></div>
+                  <div class="text-center mt-5">
+                    <span class="d-block mobile-text">Don't receive the code?</span>
+                    <p class="font-weight-bold text-success cursor">Please check in your spam email!</p>
+{/* <!--                          <a href="#" class="font-weight-bold text-success cursor" id="forgotPasswordresendOTP">Resend</a>--> */}
+                  </div>
+                  <div class="invalid-feedback" id="forgotPasswordResentOTPTypeError"></div>
+                  <div class="invalid-feedback" id="forgotPasswordResentOTPUserError"></div>
+                </div>
+              </div>
+
+               <div class="form-group">
+                <div class="eltio_ol9">
+                  <div class="eltio_k1">
+{/* <!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>--> */}
+                  </div>
+                  <div class="eltio_k2">
+                    <a href="#" class="signin-link">Want to Log In?</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group btn-form-group">
+                <button type="submit" class="btn btn-md full-width pop-verify btn-form-green" id="forgotPasswordVerifyMailOTP">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                  <span>Verify</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        {/* <!-- Forgetpassword:- End Email OTP Verification --> */}
+
+        {/* <!-- Forgot-Password Form --> */}
+        <div class="tab-pane" id="email-forgot-password-change" role="tabpanel" aria-labelledby="pills-forgot-password-tab">
+          <div class="forgot-password-form">
+            <h4 class="text-center">Reset Password</h4>
+            <form id="forgetPasswordFormStep3">
+              <div class="form-group mt-3">
+                <label>New Password</label>
+                <div class="input-with-icon">
+                  <input type="password" name="new_password" class="form-control"/>
+                  <i class="ti-unlock"></i>
+                </div>
+                <div class="invalid-feedback password">
+                      Invalid New Password
+                </div>
+              </div>
+
+              <div class="form-group mt-3">
+                <label>Confirm New Password</label>
+                <div class="input-with-icon">
+                  <input type="password" name="confirm_new_password" class="form-control"/>
+                  <i class="ti-key"></i>
+                </div>
+                <div class="invalid-feedback confirmpassword">
+                      Invalid Confirm Password
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <div class="eltio_ol9">
+                  <div class="eltio_k1">
+{/* <!--                          <input class="checkbox-custom" name="ddd" type="checkbox">-->
+<!--                          <label for="ddd" class="checkbox-custom-label">Remember Me</label>--> */}
+                  </div>
+                  <div class="eltio_k2">
+                    <a href="#" class="signin-link">Want to Log In?</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group btn-form-group">
+                <button type="submit" class="btn btn-md full-width pop-login btn-form-green" id="forgotPasswordChangeNew">
+                  <div class="spinner-border spinner-border-custom" role="status">
+                  </div>
+                  <span>Submit</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        {/* <!-- End Forgot-Password Form --> */}
+
+      </div>
+    </div>
+  </div>
